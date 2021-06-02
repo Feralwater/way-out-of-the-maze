@@ -1,1 +1,1 @@
-# way-out-of-the-maze
+# ITRex Group Node.js Lab | Test task
