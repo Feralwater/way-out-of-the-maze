@@ -2,31 +2,10 @@ function wayOutOfTheMaze(maze) {
   const graph = createGraph(maze)
   const startNode = start(maze)
   const endNode = end(maze)
+  const res = dijkstraAlgorithm(graph, startNode, endNode);
+  const data = results(res);
+  saveFileData(data)
 }
-
-
-
-
-const maze = [
-
-  ['#', '#', '#', '#', '#', '#', '#', '#', '#'],
-
-  ['#', '+', '+', '+', '#', '+', '+', '+', '#'],
-
-  ['#', '+', '#', '+', '#', '+', '#', '+', '#'],
-
-  ['+', '+', '#', '+', '0', '+', '#', '+', '#'],
-
-  ['#', '#', '#', '+', '#', '#', '#', '#', '#'],
-
-  ['#', '#', '+', '+', '#', '#', '#', '#', '#'],
-
-  ['#', '#', '+', '#', '#', '#', '#', '#', '#'],
-
-  ['#', '#', '#', '#', '#', '#', '#', '#', '#'],
-
-]
-
 
 function start(maze) {
   let start = {
@@ -82,9 +61,6 @@ let createGraph = (arr) => {
   return graph
 }
 
-
-
-
 function dijkstraAlgorithm(edges, startNode, endNode) {
   const shortestDistanceNode = (distances, visited) => {
     let shortest = null;
@@ -133,14 +109,10 @@ function dijkstraAlgorithm(edges, startNode, endNode) {
     shortestPath.push(parent);
     parent = parents[parent];
   }
-  shortestPath.reverse();
-
-  return shortestPath;
+  return shortestPath.reverse();
 }
 
-const res = dijkstraAlgorithm(graph, startNode, endNode);
-
-function results (res) {
+function results(res) {
   let result = res.map(el => +el * 10)
   let answer = [];
   for (let i = 0; i < result.length; i++) {
@@ -160,11 +132,29 @@ function results (res) {
   return `${"['" + answer.join('\',\'') + "']"}`
 }
 
-const data = results(res);
-
 function saveFileData(data) {
   const fs = require("fs")
   fs.writeFileSync("path-plan.txt", data, "ascii")
 }
 
-saveFileData(data)
+const maze = [
+
+  ['#', '#', '#', '#', '#', '#', '#', '#', '#'],
+
+  ['#', '+', '+', '+', '#', '+', '+', '+', '#'],
+
+  ['#', '+', '#', '+', '#', '+', '#', '+', '#'],
+
+  ['+', '+', '#', '+', '0', '+', '#', '+', '#'],
+
+  ['#', '#', '#', '+', '#', '#', '#', '#', '#'],
+
+  ['#', '#', '+', '+', '#', '#', '#', '#', '#'],
+
+  ['#', '#', '+', '#', '#', '#', '#', '#', '#'],
+
+  ['#', '#', '#', '#', '#', '#', '#', '#', '#'],
+
+]
+
+wayOutOfTheMaze(maze);
